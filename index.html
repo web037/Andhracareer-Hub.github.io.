@@ -20,7 +20,23 @@
             color: white;
             min-height: 100vh;
         }
+         .logo-circle {
+            width: 60px; /* Adjust size as needed */
+            height: 60px; /* Adjust size as needed */
+            border-radius: 50%; /* Makes it circular */
+            overflow: hidden; /* Ensures the image stays within the circle */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px; /* Space between logo and text */
+        }
 
+        .logo-image {
+            width: 100%; /* Ensures the image fills the circle */
+            height: 100%; /* Ensures the image fills the circle */
+            object-fit: cover; /* Ensures the image scales properly */
+        }
+      
         .header {
             padding: 1rem;
             background: rgba(0, 40, 85, 0.9);
@@ -223,11 +239,17 @@
     <!-- Login Page (Visible by Default) -->
     <div id="login-page">
         <div class="header">
-            <h1>AndhraCareer Hub</h1>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <!-- Circular Logo -->
+                <div class="logo-circle">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742674139/ach2_qvwh8v.jpg" alt="AndhraCareer Hub Logo" class="logo-image">
+                </div>
+                <h1>AndhraCareer Hub</h1>
+            </div>
             <p>Your Andhra Career GPS</p>
         </div>
 
-        <div class="login-section">
+      <div class="login-section">
             <h2>Login to Access</h2>
             <input type="email" id="login-email" placeholder="Email" required>
             <input type="password" id="login-password" placeholder="Password" required>
@@ -241,13 +263,18 @@
         </div>
     </div>
 
-    <!-- Homepage (Hidden by Default) -->
+   <!-- Homepage (Hidden by Default) -->
     <div id="homepage" class="homepage">
         <div class="header">
-            <h1>AndhraCareer Hub</h1>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <!-- Circular Logo -->
+                <div class="logo-circle">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742674139/ach2_qvwh8v.jpg" alt="AndhraCareer Hub Logo" class="logo-image">
+                </div>
+                <h1>AndhraCareer Hub</h1>
+            </div>
             <p>Your Andhra Career GPS</p>
         </div>
-
         <div class="nav-links">
             <a href="#" onclick="showPage('homepage')">Home</a>
             <a href="#" onclick="showPage('mentor-section')">Career Mentor</a>
