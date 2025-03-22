@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AndhraCareer Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 1rem;
+            background: rgba(0, 40, 85, 0.9);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .login-section {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            text-align: center;
+        }
+
+        .login-section h2 {
+            margin-bottom: 1rem;
+        }
+
+        .login-section input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .login-section button {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #00d4ff;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .login-section button:hover {
+            background: #00b8e6;
+        }
+
+        .homepage, .mentor-section, .universities-section, .collab-section, .jobs-section, .schools-section, .courses-section, .interview-section, .mocks-section {
+            display: none;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .homepage h2, .mentor-section h2, .universities-section h2, .collab-section h2, .jobs-section h2, .schools-section h2, .courses-section h2, .interview-section h2, .mocks-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .mentor-grid, .universities-grid, .collab-grid, .jobs-grid, .schools-grid, .courses-grid, .interview-grid, .mocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .mentor-card, .university-card, .collab-card, .job-card, .school-card, .course-card, .interview-card, .mock-card {
+            background: rgba(0, 80, 160, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .mentor-card:hover, .university-card:hover, .collab-card:hover, .job-card:hover, .school-card:hover, .course-card:hover, .interview-card:hover, .mock-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .mentor-card img, .university-card img, .collab-card img, .school-card img, .course-card img, .interview-card img, .mock-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .mentor-card h3, .university-card h3, .collab-card h3, .job-card h3, .school-card h3, .course-card h3, .interview-card h3, .mock-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mentor-card p, .university-card p, .collab-card p, .job-card p, .school-card p, .course-card p, .interview-card p, .mock-card p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 40, 85, 0.9);
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .chatbot-icon {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #00d4ff;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .info-card {
+            background: rgba(0, 80, 160, 0.8);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+        }
+
+        .info-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .info-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .info-card ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .info-card ul li {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page (Visible by Default) -->
+    <div id="login-page">
+        <div class="header">
+            <h1>AndhraCareer Hub</h1>
+            <p>Your Andhra Career GPS</p>
+        </div>
+
+        <div class="login-section">
+            <h2>Login to Access</h2>
+            <input type="email" id="login-email" placeholder="Email" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+        </div>
+
+        <div class="footer">
+            <p>About Us | Institutes | Contact Us</p>
+            <p>&copy; 2023 AndhraCareer Hub. All rights reserved.</p>
+            <p>Designed by Madana Sai Jahnavi</p>
+        </div>
+    </div>
+
+    <!-- Homepage (Hidden by Default) -->
+    <div id="homepage" class="homepage">
+        <div class="header">
+            <h1>AndhraCareer Hub</h1>
+            <p>Your Andhra Career GPS</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="#" onclick="showPage('homepage')">Home</a>
+            <a href="#" onclick="showPage('mentor-section')">Career Mentor</a>
+            <a href="#" onclick="showPage('universities-section')">Best Universities</a>
+            <a href="#" onclick="showPage('collab-section')">Collaboration Proof</a>
+            <a href="#" onclick="showPage('jobs-section')">Job Opportunities</a>
+            <a href="#" onclick="showPage('schools-section')">Best Schools</a>
+            <a href="#" onclick="showPage('courses-section')">Best Courses</a>
+            <a href="#" onclick="showPage('interview-section')">Interview Prep</a>
+            <a href="#" onclick="showPage('mocks-section')">Mock Tests</a>
+        </div>
+
+        <div class="info-card">
+            <h2>Welcome to AndhraCareer Hub</h2>
+            <p>Your premier career guidance platform in Andhra Pradesh</p>
+            <div>
+                <h3>Featured Jobs</h3>
+                <p>Explore 1000+ opportunities across Andhra Pradesh</p>
+            </div>
+            <div>
+                <h3>Career Guidance</h3>
+                <p>Get personalized career counseling from experts</p>
+            </div>
+        </div>
+
+        <!-- Inspirational Mentors Section -->
+        <div class="info-card">
+            <h2>Inspirational Mentors</h2>
+            <div class="mentor-grid">
+                <div class="mentor-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742664257/k_sudhakar_mq5nff.jpg" alt="Mentor 1">
+                    <h3>Dr. K. Sridhar</h3>
+                    <p>Career Strategist | 20+ Years Experience</p>
+                </div>
+                <div class="mentor-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742664356/ananya_reddy_zr83bt.jpg" alt="Mentor 2">
+                    <h3>Ms. Ananya Reddy</h3>
+                    <p>Leadership Coach | Tech Industry Expert</p>
+                </div>
+                <div class="mentor-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742664512/rajesh_kumar_jheowt.jpg" alt="Mentor 3">
+                    <h3>Mr. Rajesh Kumar</h3>
+                    <p>Entrepreneur | Startup Mentor</p>
+                </div>
+                <div class="mentor-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742664623/priya_sybnep.jpg" alt="Mentor 4">
+                    <h3>Ms. Priya Sharma</h3>
+                    <p>Career Counselor | Education Specialist</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Collaboration Certificates Section -->
+        <div class="info-card">
+            <h2>Collaboration Certificates</h2>
+            <div class="collab-grid">
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742663805/au_fmku9a.jpg " alt="Certificate 1">
+                    <h3>Andhra University</h3>
+                    <p>Career Guidance Programs</p>
+                </div>
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742664768/download_fz9usa.jpg" alt="Certificate 2">
+                    <h3>JNTU Kakinada</h3>
+                    <p>Skill Development Workshops</p>
+                </div>
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742664838/tcs_internship_taoiso.jpg" alt="Certificate 3">
+                    <h3>TCS</h3>
+                    <p>Job Placement Drives</p>
+                </div>
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742664881/infosys_internship_m4upza.jpg" alt="Certificate 4">
+                    <h3>Infosys</h3>
+                    <p>Internship Opportunities</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Mock Tests Section -->
+        <div class="info-card">
+            <h2>Premium Mock Tests</h2>
+            <p>Unlock premium mock tests to ace your exams and interviews.</p>
+            <button onclick="takePremium()">Take Premium</button>
+        </div>
+
+        <div class="footer">
+            <p>📞 0866-224 5678 | 📧 support@andhracareerhub.in</p>
+            <p>&copy; 2023 AndhraCareer Hub. All rights reserved.</p>
+            <p>Designed by Madana Sai Jahnavi</p>
+        </div>
+    </div>
+
+    <!-- Universities Page (Hidden by Default) -->
+    <div id="universities-section" class="universities-section">
+        <div class="header">
+            <h1>Top Universities in Andhra Pradesh</h1>
+        </div>
+
+        <div class="nav-links">
+            <a href="#" onclick="showPage('homepage')">Home</a>
+            <a href="#" onclick="showPage('mentor-section')">Career Mentor</a>
+            <a href="#" onclick="showPage('universities-section')">Best Universities</a>
+            <a href="#" onclick="showPage('collab-section')">Collaboration Proof</a>
+            <a href="#" onclick="showPage('jobs-section')">Job Opportunities</a>
+            <a href="#" onclick="showPage('schools-section')">Best Schools</a>
+            <a href="#" onclick="showPage('courses-section')">Best Courses</a>
+            <a href="#" onclick="showPage('interview-section')">Interview Prep</a>
+            <a href="#" onclick="showPage('mocks-section')">Mock Tests</a>
+        </div>
+
+        <div class="info-card">
+            <h2>Top Universities</h2>
+            <ul>
+                <li><a href="https://www.andhrauniversity.edu.in/" target="_blank" style="color: white;">Andhra University, Visakhapatnam</a></li>
+                <li><a href="https://aknu.edu.in/" target="_blank" style="color: white;">Adi Kavi Annamayya University, Rajamahendravaram</a></li>
+                <li><a href="https://www.google.com/search?q=Jawaharlal+Nehru+Technological+University+Kakinada" target="_blank" style="color: white;">Jawaharlal Nehru Technological University, Kakinada</a></li>
+                <li><a href="https://www.google.com/search?q=Sri+Venkateswara+University+Tirupati" target="_blank" style="color: white;">Sri Venkateswara University, Tirupati</a></li>
+                <li><a href="https://www.google.com/search?q=VIT-AP+University+Amaravati" target="_blank" style="color: white;">VIT-AP University, Amaravati</a></li>
+                <li><a href="https://www.google.com/search?q=SRM+University+Amaravati" target="_blank" style="color: white;">SRM University, Amaravati</a></li>
+                <li><a href="https://www.google.com/search?q=GITAM+University+Visakhapatnam" target="_blank" style="color: white;">GITAM University, Visakhapatnam</a></li>
+                <li><a href="https://www.google.com/search?q=K+L+University+Vijayawada" target="_blank" style="color: white;">K L University, Vijayawada</a></li>
+                <li><a href="https://www.google.com/search?q=Amrita+Vishwa+Vidyapeetham+Amaravati" target="_blank" style="color: white;">Amrita Vishwa Vidyapeetham, Amaravati</a></li>
+                <li><a href="https://www.google.com/search?q=NIT+Andhra+Pradesh+Tadepalligudem" target="_blank" style="color: white;">NIT Andhra Pradesh, Tadepalligudem</a></li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>📞 0866-224 5678 | 📧 support@andhracareerhub.in</p>
+            <p>&copy; 2023 AndhraCareer Hub. All rights reserved.</p>
+            <p>Designed by Madana Sai Jahnavi</p>
+        </div>
+    </div>
+
+    <!-- Best Schools Page (Hidden by Default) -->
+    <div id="schools-section" class="schools-section">
+        <div class="header">
+            <h1>Best Schools in Andhra Pradesh</h1>
+        </div>
+
+        <div class="nav-links">
+            <a href="#" onclick="showPage('homepage')">Home</a>
+            <a href="#" onclick="showPage('mentor-section')">Career Mentor</a>
+            <a href="#" onclick="showPage('universities-section')">Best Universities</a>
+            <a href="#" onclick="showPage('collab-section')">Collaboration Proof</a>
+            <a href="#" onclick="showPage('jobs-section')">Job Opportunities</a>
+            <a href="#" onclick="showPage('schools-section')">Best Schools</a>
+            <a href="#" onclick="showPage('courses-section')">Best Courses</a>
+            <a href="#" onclick="showPage('interview-section')">Interview Prep</a>
+            <a href="#" onclick="showPage('mocks-section')">Mock Tests</a>
+        </div>
+
+        <div class="info-card">
+            <h2>Top Schools</h2>
+            <ul>
+                <li><a href="https://www.dpsvisakhapatnam.in/" target="_blank" style="color: white;">Delhi Public School, Visakhapatnam</a></li>
+                <li><a href="https://www.oakridge.in/visakhapatnam/" target="_blank" style="color: white;">Oakridge International School, Visakhapatnam</a></li>
+                <li><a href="https://www.bhavans.info/" target="_blank" style="color: white;">Bharatiya Vidya Bhavan, Vijayawada</a></li>
+                <li><a href="https://www.srichaitanyaschool.net/" target="_blank" style="color: white;">Sri Chaitanya School, Tirupati</a></li>
+                <li><a href="https://www.narayanagroup.com/" target="_blank" style="color: white;">Narayana School, Guntur</a></li>
+                <li><a href="https://www.kvsangathan.nic.in/" target="_blank" style="color: white;">Kendriya Vidyalaya, Visakhapatnam</a></li>
+                <li><a href="https://www.davpublicschools.org/" target="_blank" style="color: white;">DAV Public School, Vijayawada</a></li>
+                <li><a href="https://www.geetanjaligroup.com/" target="_blank" style="color: white;">Geetanjali School, Hyderabad</a></li>
+                <li><a href="https://www.chinmayavidyalaya.com/" target="_blank" style="color: white;">Chinmaya Vidyalaya, Visakhapatnam</a></li>
+                <li><a href="https://www.stjosephsvisakhapatnam.org/" target="_blank" style="color: white;">St. Joseph's School, Visakhapatnam</a></li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>📞 0866-224 5678 | 📧 support@andhracareerhub.in</p>
+            <p>&copy; 2023 AndhraCareer Hub. All rights reserved.</p>
+            <p>Designed by Madana Sai Jahnavi</p>
+        </div>
+    </div>
+
+    <!-- Collaboration Proof Page (Hidden by Default) -->
+    <div id="collab-section" class="collab-section">
+        <div class="header">
+            <h1>Collaboration Proof</h1>
+        </div>
+
+        <div class="nav-links">
+            <a href="#" onclick="showPage('homepage')">Home</a>
+            <a href="#" onclick="showPage('mentor-section')">Career Mentor</a>
+            <a href="#" onclick="showPage('universities-section')">Best Universities</a>
+            <a href="#" onclick="showPage('collab-section')">Collaboration Proof</a>
+            <a href="#" onclick="showPage('jobs-section')">Job Opportunities</a>
+            <a href="#" onclick="showPage('schools-section')">Best Schools</a>
+            <a href="#" onclick="showPage('courses-section')">Best Courses</a>
+            <a href="#" onclick="showPage('interview-section')">Interview Prep</a>
+            <a href="#" onclick="showPage('mocks-section')">Mock Tests</a>
+        </div>
+
+        <div class="info-card">
+            <h2>Collaboration Proof</h2>
+            <div class="collab-grid">
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742663805/au_fmku9a.jpg " alt="Certificate 1">
+                    <h3>Andhra University</h3>
+                    <p>Career Guidance Programs</p>
+                </div>
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742665021/slide2_qnmdst.jpg" alt="Certificate 2">
+                    <h3>JNTU Kakinada</h3>
+                    <p>Skill Development Workshops</p>
+                </div>
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742665076/tcs_yjvf3r.jpg" alt="Certificate 3">
+                    <h3>TCS</h3>
+                    <p>Job Placement Drives</p>
+                </div>
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742665186/Bangalore-New-001-1618206095637_l1udyf.avif" alt="Certificate 4">
+                    <h3>Infosys</h3>
+                    <p>Internship Opportunities</p>
+                </div>
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742665356/wipro-limited-resapuvanipalem-visakhapatnam-it-solution-providers-wbrnszok12-250_tkczas.avif" alt="Certificate 5">
+                    <h3>Wipro</h3>
+                    <p>Training Programs</p>
+                </div>
+                <div class="collab-card">
+                    <img src=''https://res.cloudinary.com/du6quf8cg/image/upload/v1742663611/acceture_coll_m3frsf.jpg" alt="Certificate 6">
+                    <h3>Accenture</h3>
+                    <p>Career Fairs</p>
+                </div>
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742663611/acceture_coll_m3frsf.jpg" alt="Certificate 7">
+                    <h3>HCL</h3>
+                    <p>Workshops</p>
+                </div>
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742665580/tech-mahindra-tweaks-brand-logo-to-convey-solidarity-in-fight-against-covid-19_rsvcgq.webp" alt="Certificate 8">
+                    <h3>Tech Mahindra</h3>
+                    <p>Internships</p>
+                </div>
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742663893/capgemini_coll_egkc13.jpg" alt="Certificate 9">
+                    <h3>Capgemini</h3>
+                    <p>Placement Drives</p>
+                </div>
+                <div class="collab-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742665781/images_q4dcj3.jpg" alt="Certificate 10">
+                    <h3>IBM</h3>
+                    <p>Training Sessions</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📞 0866-224 5678 | 📧 support@andhracareerhub.in</p>
+            <p>&copy; 2023 AndhraCareer Hub. All rights reserved.</p>
+            <p>Designed by Madana Sai Jahnavi</p>
+        </div>
+    </div>
+
+    <!-- Job Opportunities Page (Hidden by Default) -->
+    <div id="jobs-section" class="jobs-section">
+        <div class="header">
+            <h1>Job Opportunities</h1>
+        </div>
+
+        <div class="nav-links">
+            <a href="#" onclick="showPage('homepage')">Home</a>
+            <a href="#" onclick="showPage('mentor-section')">Career Mentor</a>
+            <a href="#" onclick="showPage('universities-section')">Best Universities</a>
+            <a href="#" onclick="showPage('collab-section')">Collaboration Proof</a>
+            <a href="#" onclick="showPage('jobs-section')">Job Opportunities</a>
+            <a href="#" onclick="showPage('schools-section')">Best Schools</a>
+            <a href="#" onclick="showPage('courses-section')">Best Courses</a>
+            <a href="#" onclick="showPage('interview-section')">Interview Prep</a>
+            <a href="#" onclick="showPage('mocks-section')">Mock Tests</a>
+        </div>
+
+        <div class="info-card">
+            <h2>Job Opportunities</h2>
+            <div class="jobs-grid">
+                <div class="job-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742666104/15039-tcs-official-website_fqbgcm.avif" alt="Job 1">
+                    <h3>Software Engineer</h3>
+                    <p>TCS | Hyderabad</p>
+                </div>
+                <div class="job-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742666220/images_1_eidsmz.jpg" alt="Job 2">
+                    <h3>Data Analyst</h3>
+                    <p>Infosys | Visakhapatnam</p>
+                </div>
+                <div class="job-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742666317/download_1_ve7puk.jpg" alt="Job 3">
+                    <h3>Web Developer</h3>
+                    <p>Wipro | Vijayawada</p>
+                </div>
+                <div class="job-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742663545/accentur_eayt3y.jpg " alt="Job 4">
+                    <h3>UI/UX Designer</h3>
+                    <p>Accenture | Guntur</p>
+                </div>
+                <div class="job-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742666650/images_2_d8axl1.jpg" alt="Job 5">
+                    <h3>Cloud Engineer</h3>
+                    <p>HCL | Tirupati</p>
+                </div>
+                <div class="job-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742666650/images_2_d8axl1.jpg" alt="Job 6">
+                    <h3>Network Engineer</h3>
+                    <p>Tech Mahindra | Rajamahendravaram</p>
+                </div>
+                <div class="job-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742663893/capgemini_coll_egkc13.jpg" alt="Job 7">
+                    <h3>DevOps Engineer</h3>
+                    <p>Capgemini | Amaravati</p>
+                </div>
+                <div class="job-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742665781/images_q4dcj3.jpg" alt="Job 8">
+                    <h3>AI/ML Engineer</h3>
+                    <p>IBM | Kakinada</p>
+                </div>
+                <div class="job-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742667103/shutterstock_552493561_dhsfkp.webp" alt="Job 9">
+                    <h3>Cybersecurity Analyst</h3>
+                    <p>Google | Hyderabad</p>
+                </div>
+                <div class="job-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742667808/FkKAB8sVUAAaNiD_lq0va4.jpg" alt="Job 10">
+                    <h3>Product Manager</h3>
+                    <p>Amazon | Visakhapatnam</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📞 0866-224 5678 | 📧 support@andhracareerhub.in</p>
+            <p>&copy; 2023 AndhraCareer Hub. All rights reserved.</p>
+            <p>Designed by Madana Sai Jahnavi</p>
+        </div>
+    </div>
+
+    <!-- Best Courses Page (Hidden by Default) -->
+    <div id="courses-section" class="courses-section">
+        <div class="header">
+            <h1>Best Courses</h1>
+        </div>
+
+        <div class="nav-links">
+            <a href="#" onclick="showPage('homepage')">Home</a>
+            <a href="#" onclick="showPage('mentor-section')">Career Mentor</a>
+            <a href="#" onclick="showPage('universities-section')">Best Universities</a>
+            <a href="#" onclick="showPage('collab-section')">Collaboration Proof</a>
+            <a href="#" onclick="showPage('jobs-section')">Job Opportunities</a>
+            <a href="#" onclick="showPage('schools-section')">Best Schools</a>
+            <a href="#" onclick="showPage('courses-section')">Best Courses</a>
+            <a href="#" onclick="showPage('interview-section')">Interview Prep</a>
+            <a href="#" onclick="showPage('mocks-section')">Mock Tests</a>
+        </div>
+
+        <div class="info-card">
+            <h2>Best Courses</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742667808/FkKAB8sVUAAaNiD_lq0va4.jpg" alt="Course 1">
+                    <h3>Data Science</h3>
+                    <p>Learn Python, ML, and Data Analysis</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742668060/1_pE2fOVDikEUwiQJlh4ggzg_migwyu.jpg" alt="Course 2">
+                    <h3>Web Development</h3>
+                    <p>HTML, CSS, JavaScript, and React</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742663974/cd_ydbzha.jpg " alt="Course 3">
+                    <h3>Cloud Computing</h3>
+                    <p>AWS, Azure, and Google Cloud</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742663716/aiml_plhglc.jpg " alt="Course 4">
+                    <h3>AI & Machine Learning</h3>
+                    <p>TensorFlow, PyTorch, and NLP</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742664018/cyber_tlunia.jpg " alt="Course 5">
+                    <h3>Cybersecurity</h3>
+                    <p>Ethical Hacking and Network Security</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742664101/devops_uz950z.jpg " alt="Course 6">
+                    <h3>DevOps</h3>
+                    <p>Docker, Kubernetes, and CI/CD</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742668397/ui_ux_fmuegk.jpg" alt="Course 7">
+                    <h3>UI/UX Design</h3>
+                    <p>Figma, Adobe XD, and Prototyping</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742668451/digital_marketing_d4zfm6.jpg" alt="Course 8">
+                    <h3>Digital Marketing</h3>
+                    <p>SEO, SEM, and Social Media Marketing</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742663841/blockchain_aymvau.jpg " alt="Course 9">
+                    <h3>Blockchain</h3>
+                    <p>Smart Contracts and DApps</p>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742668552/fsd_gdxzcq.jpg" alt="Course 10">
+                    <h3>Full Stack Development</h3>
+                    <p>MERN Stack and REST APIs</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📞 0866-224 5678 | 📧 support@andhracareerhub.in</p>
+            <p>&copy; 2023 AndhraCareer Hub. All rights reserved.</p>
+            <p>Designed by Madana Sai Jahnavi</p>
+        </div>
+    </div>
+
+    <!-- Interview Preparation Page (Hidden by Default) -->
+    <div id="interview-section" class="interview-section">
+        <div class="header">
+            <h1>Interview Preparation</h1>
+        </div>
+
+        <div class="nav-links">
+            <a href="#" onclick="showPage('homepage')">Home</a>
+            <a href="#" onclick="showPage('mentor-section')">Career Mentor</a>
+            <a href="#" onclick="showPage('universities-section')">Best Universities</a>
+            <a href="#" onclick="showPage('collab-section')">Collaboration Proof</a>
+            <a href="#" onclick="showPage('jobs-section')">Job Opportunities</a>
+            <a href="#" onclick="showPage('schools-section')">Best Schools</a>
+            <a href="#" onclick="showPage('courses-section')">Best Courses</a>
+            <a href="#" onclick="showPage('interview-section')">Interview Prep</a>
+            <a href="#" onclick="showPage('mocks-section')">Mock Tests</a>
+        </div>
+
+        <div class="info-card">
+            <h2>Interview Preparation</h2>
+            <div class="interview-grid">
+                <div class="interview-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742668628/StudentLife_Students_Studying_Indoor_GettyImages-1017296586_m4tvhz.webp" alt="Interview 1">
+                    <h3>Technical Interviews</h3>
+                    <p>Practice coding problems and system design</p>
+                </div>
+                <div class="interview-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742668756/images_4_flhtkl.jpg" alt="Interview 2">
+                    <h3>Behavioral Interviews</h3>
+                    <p>Learn how to answer STAR questions</p>
+                </div>
+                <div class="interview-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742669114/images_5_mzuzxg.jpg" alt="Interview 3">
+                    <h3>Resume Building</h3>
+                    <p>Create a professional resume</p>
+                </div>
+                <div class="interview-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742669149/Mock-interview_ma01vq.webp" alt="Interview 4">
+                    <h3>Mock Interviews</h3>
+                    <p>Practice with industry experts</p>
+                </div>
+                <div class="interview-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742669284/images_1_ez8rq5.png" alt="Interview 5">
+                    <h3>Company Research</h3>
+                    <p>Understand company culture and values</p>
+                </div>
+                <div class="interview-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742669275/images_6_kyiedr.jpg" alt="Interview 6">
+                    <h3>Salary Negotiation</h3>
+                    <p>Learn how to negotiate your salary</p>
+                </div>
+                <div class="interview-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742669399/images_7_ftjzzi.jpg" alt="Interview 7">
+                    <h3>Dress Code</h3>
+                    <p>Dress professionally for interviews</p>
+                </div>
+                <div class="interview-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742668974/images_fotbii.png" alt="Interview 8">
+                    <h3>Follow-Up Emails</h3>
+                    <p>Send thank-you emails after interviews</p>
+                </div>
+                <div class="interview-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742668965/The-Importance-of-Body-Language-in-an-Interview-What-Your-Body-Is-Saying_wmhwkr.webp" alt="Interview 9">
+                    <h3>Body Language</h3>
+                    <p>Improve your non-verbal communication</p>
+                </div>
+                <div class="interview-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742668855/small_interview-panel_isqlwq.webp" alt="Interview 10">
+                    <h3>Common Questions</h3>
+                    <p>Prepare for frequently asked questions</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📞 0866-224 5678 | 📧 support@andhracareerhub.in</p>
+            <p>&copy; 2023 AndhraCareer Hub. All rights reserved.</p>
+            <p>Designed by Madana Sai Jahnavi</p>
+        </div>
+    </div>
+
+    <!-- Mock Tests Page (Hidden by Default) -->
+    <div id="mocks-section" class="mocks-section">
+        <div class="header">
+            <h1>Mock Tests</h1>
+        </div>
+
+        <div class="nav-links">
+            <a href="#" onclick="showPage('homepage')">Home</a>
+            <a href="#" onclick="showPage('mentor-section')">Career Mentor</a>
+            <a href="#" onclick="showPage('universities-section')">Best Universities</a>
+            <a href="#" onclick="showPage('collab-section')">Collaboration Proof</a>
+            <a href="#" onclick="showPage('jobs-section')">Job Opportunities</a>
+            <a href="#" onclick="showPage('schools-section')">Best Schools</a>
+            <a href="#" onclick="showPage('courses-section')">Best Courses</a>
+            <a href="#" onclick="showPage('interview-section')">Interview Prep</a>
+            <a href="#" onclick="showPage('mocks-section')">Mock Tests</a>
+        </div>
+
+        <div class="info-card">
+            <h2>Mock Tests</h2>
+            <div class="mocks-grid">
+                <div class="mock-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742669771/GRE-free-Mock-tests-study-material-and-more_ia1zai.png" alt="Mock 1">
+                    <h3>GRE Mock Test</h3>
+                    <p>Practice for GRE with timed tests</p>
+                </div>
+                <div class="mock-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742669669/download_2_negvhg.jpg" alt="Mock 2">
+                    <h3>CAT Mock Test</h3>
+                    <p>Prepare for CAT with realistic tests</p>
+                </div>
+                <div class="mock-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742669660/images_8_ririuf.jpg" alt="Mock 3">
+                    <h3>GATE Mock Test</h3>
+                    <p>Practice for GATE with expert questions</p>
+                </div>
+                <div class="mock-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742669678/TOEFL-Mock-Practice-Test-10_galjey.webp" alt="Mock 4">
+                    <h3>TOEFL Mock Test</h3>
+                    <p>Prepare for TOEFL with timed tests</p>
+                </div>
+                <div class="mock-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742669687/download_jbayqx.png" alt="Mock 5">
+                    <h3>IELTS Mock Test</h3>
+                    <p>Practice for IELTS with realistic tests</p>
+                </div>
+                <div class="mock-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742669696/download_3_rechzb.jpg" alt="Mock 6">
+                    <h3>SSC CGL Mock Test</h3>
+                    <p>Prepare for SSC CGL with expert questions</p>
+                </div>
+                <div class="mock-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742670047/81FFORkNLlL._AC_UF1000_1000_QL80__pi7in7.jpg" alt="Mock 7">
+                    <h3>Bank PO Mock Test</h3>
+                    <p>Practice for Bank PO with timed tests</p>
+                </div>
+                <div class="mock-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742670061/images_9_xgjz0v.jpg" alt="Mock 8">
+                    <h3>UPSC Mock Test</h3>
+                    <p>Prepare for UPSC with realistic tests</p>
+                </div>
+                <div class="mock-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742670072/JEE-Main-Mock-Test_jllf8d.png" alt="Mock 9">
+                    <h3>JEE Main Mock Test</h3>
+                    <p>Practice for JEE Main with expert questions</p>
+                </div>
+                <div class="mock-card">
+                    <img src="https://res.cloudinary.com/du6quf8cg/image/upload/v1742670167/WhatsApp_Image_2025-02-24_at_12.16.22_PM_seliyi.jpg" alt="Mock 10">
+                    <h3>NEET Mock Test</h3>
+                    <p>Prepare for NEET with timed tests</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📞 0866-224 5678 | 📧 support@andhracareerhub.in</p>
+            <p>&copy; 2023 AndhraCareer Hub. All rights reserved.</p>
+            <p>Designed by Madana Sai Jahnavi</p>
+        </div>
+    </div>
+
+    <!-- Chatbot Icon -->
+    <div class="chatbot-icon" onclick="openChat()">💬</div>
+
+    <script>
+        // Function to handle login
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // Simple validation
+            if (email && password) {
+                // Hide login page and show homepage
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('homepage').style.display = 'block';
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        // Function to show the selected page
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.homepage, .mentor-section, .universities-section, .collab-section, .jobs-section, .schools-section, .courses-section, .interview-section, .mocks-section').forEach(page => {
+                page.style.display = 'none';
+            });
+
+            // Show the selected page
+            document.getElementById(pageId).style.display = 'block';
+        }
+
+        // Function to handle premium mock tests
+        function takePremium() {
+            const isConfirmed = confirm("Unlock premium mock tests for ₹999/month. Proceed?");
+            if (isConfirmed) {
+                alert("Thank you for subscribing! Redirecting to premium mock tests...");
+                // Redirect to premium mock tests page or show premium content
+                showPage('mocks-section');
+            }
+        }
+
+        // Function to open chatbot
+        function openChat() {
+            alert("Welcome to AndhraCareer Hub! Our chatbot is currently under development. Please contact us via email or phone.");
+        }
+    </script>
+</body>
+</html>
